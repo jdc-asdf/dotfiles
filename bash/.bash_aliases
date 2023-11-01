@@ -28,6 +28,9 @@ alias n='nnn'
 alias nnn='nnn -de'
 alias mkidr='mkdir -p'
 
+alias mv='mv -i'
+alias rm='rm -i'
+
 #silly
 alias :q='echo "You are not editing a file!"'
 alias :wq=':q'

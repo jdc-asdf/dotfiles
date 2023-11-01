@@ -10,11 +10,6 @@ HISTFILESIZE=2000
 HISTSIZE=1000
 shopt -s histappend
 
-source ~/dotfiles/.git-prompt.sh
-
-
-# shopt -u promptvars
-
 # allows you to go to file without typing cd
 shopt -s autocd 
 
@@ -55,20 +50,8 @@ PROMPT_DIRTRIM=3
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-if [ -d "$HOME/Scripts" ] ; then
-    PATH="$HOME/Scripts:$PATH"
-fi
-
-# bash aliases are in the specified path
-if [ -f ~/.bash_prompt ]; then
-    . ~/.bash_prompt
-fi
-
-
-# bash aliases are in the specified path
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
+. "$DOTFILES/bash/.bash_prompt"
+. "$DOTFILES/bash/.bash_aliases"
 
 # enable programmable completion features (you don't need to enable this, if it's already enabled in /etc/bash.bashrc and /etc/profile sources /etc/bash.bashrc).
 if ! shopt -oq posix; then
@@ -79,5 +62,5 @@ if ! shopt -oq posix; then
   fi
 fi
 
-
-# run on start up
+# ~/ Clean up:
+# export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"

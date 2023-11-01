@@ -1,3 +1,5 @@
+source $DOTFILES/bash/.git-prompt.sh
+
 # Remove color but keeping the bold
 RC='\[\033[1;39m\]'
 
