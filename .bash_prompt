@@ -7,5 +7,9 @@ RF='\[\033[0m\]'
 BOLD="\[\033[1m\]"
 PURPLE="\[\033[35m\]"
 BLUE="\[\033[34m\]"
+RED="\[\033[37m\]"
 
-PS1=" ${BOLD}[${PURPLE}:3${RC}] [ ${PURPLE}\w${RC} ] ${BLUE}\$${RF} "
+# GIT_PROMPPT="$(__git_ps1 'git:[%s]')"
+
+export PS1=" ${BOLD}[${PURPLE}:3${RC}] [ ${PURPLE}\w${RED}\$(__git_ps1)${RC} ] ${BLUE}\$${RF} "
+

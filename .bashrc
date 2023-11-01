@@ -10,6 +10,11 @@ HISTFILESIZE=2000
 HISTSIZE=1000
 shopt -s histappend
 
+source ~/dotfiles/.git-prompt.sh
+
+
+# shopt -u promptvars
+
 # allows you to go to file without typing cd
 shopt -s autocd 
 
