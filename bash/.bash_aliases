@@ -1,5 +1,5 @@
 alias honkmimi='systemctl suspend'
-alias shutnow='shutdown now'
+alias shutnow='sudo shutdown now'
 
 #shortcuts
 alias brightfull='sudo brightnessctl s 150'
