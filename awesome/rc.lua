@@ -66,16 +66,16 @@ modkey = "Mod4"
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
     awful.layout.suit.tile,
-    awful.layout.suit.floating,
     -- awful.layout.suit.tile.left,
     -- awful.layout.suit.tile.bottom,
-    awful.layout.suit.tile.top,
+    -- awful.layout.suit.tile.top,
     awful.layout.suit.fair,
     -- awful.layout.suit.fair.horizontal,
     awful.layout.suit.spiral,
     -- awful.layout.suit.spiral.dwindle,
     -- awful.layout.suit.max,
     -- awful.layout.suit.max.fullscreen,
+    awful.layout.suit.floating,
     -- awful.layout.suit.magnifier,
     -- awful.layout.suit.corner.nw,
     -- awful.layout.suit.corner.ne,
@@ -268,7 +268,6 @@ globalkeys = gears.table.join(
         end,
         {description = "focus previous by index", group = "client"}
     ),
-
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end,
               {description = "swap with next client by index", group = "client"}),
@@ -328,20 +327,28 @@ globalkeys = gears.table.join(
 
     -- Prompt
     awful.key({ modkey },            "r",     function () awful.util.spawn("dmenu_run") end,
-              {description = "run dmenu", group = "launcher"})
+    {description = "run dmenu", group = "launcher"}),
+    awful.key({modkey}, "b", function() awful.util.spawn("firefox") end, 
+    {description = "open browser", group = "launcher"}),
+
+    awful.key({modkey}, "e", function() awful.spawn.with_shell("kitty nnn -de") end, 
+    {description = "open file manager", group = "launcher"})
+
 )
 
 clientkeys = gears.table.join(
+
     awful.key({ modkey,           }, "f",
         function (c)
+            myscreen = awful.screen.focused()
+            myscreen.mywibox.visible = not myscreen.mywibox.visible
             c.fullscreen = not c.fullscreen
             c:raise()
         end,
         {description = "toggle fullscreen", group = "client"}),
-    
+
         awful.key({ modkey, }, "q", function (c) c:kill() end, {description = "close", group = "client"}),
-    
-              awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
+    awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
               {description = "toggle floating", group = "client"}),
     
               awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end,
@@ -362,20 +369,7 @@ clientkeys = gears.table.join(
             c.maximized = not c.maximized
             c:raise()
         end ,
-        {description = "(un)maximize", group = "client"}),
-    awful.key({ modkey, "Control" }, "m",
-        function (c)
-            c.maximized_vertical = not c.maximized_vertical
-            c:raise()
-        end ,
-        {description = "(un)maximize vertically", group = "client"}),
-    awful.key({ modkey, "Shift"   }, "m",
-        function (c)
-            c.maximized_horizontal = not c.maximized_horizontal
-            c:raise()
-        end ,
-        {description = "(un)maximize horizontally", group = "client"})
-)
+        {description = "(un)maximize", group = "client"}))
 
 -- Bind all key numbers to tags.
 -- Be careful: we use keycodes to make it work on any keyboard layout.

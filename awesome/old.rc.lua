@@ -188,7 +188,6 @@ awful.screen.connect_for_each_screen(function(s)
 
     -- Each screen has its own tag table.
     awful.tag({ "1", "2", "3", "4" }, s, awful.layout.layouts[1])
-    
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
     -- Create an imagebox widget which will contain an icon indicating which layout we're using.
@@ -268,7 +267,6 @@ globalkeys = gears.table.join(
         end,
         {description = "focus previous by index", group = "client"}
     ),
-    
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end,
               {description = "swap with next client by index", group = "client"}),
@@ -292,7 +290,7 @@ globalkeys = gears.table.join(
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end, {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart(), {description = "reload awesome", group = "awesome"}),
-    
+ 
     awful.key({ modkey, "Shift"   }, "x", awesome.quit,
               {description = "quit awesome", group = "awesome"}),
 
@@ -338,7 +336,7 @@ globalkeys = gears.table.join(
 )
 
 clientkeys = gears.table.join(
- 
+
     awful.key({ modkey,           }, "f",
         function (c)
             myscreen = awful.screen.focused()
