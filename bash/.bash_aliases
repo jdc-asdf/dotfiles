@@ -16,10 +16,9 @@ alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
-alias l='exa --icons'
-alias ls='exa -l --icons'
-alias ll='exa -la --icons'
-alias tree='exa -aT --level=4 --icons'
+alias l='exa -l --icons'
+alias ls='exa -la --icons'
+alias ll='exa -aT --level=4 --icons'
 
 alias vi='nvim'
 alias vim='nvim'
@@ -28,7 +27,7 @@ alias n='nnn'
 alias nnn='nnn -de'
 alias mkidr='mkdir -p'
 
-alias mv='mv -i'
+alias mv='mv -v'
 alias rm='rm -i'
 
 #silly

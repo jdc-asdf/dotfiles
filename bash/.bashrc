@@ -64,3 +64,5 @@ fi
 
 # ~/ Clean up:
 # export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
+
+date

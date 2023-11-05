@@ -332,8 +332,10 @@ globalkeys = gears.table.join(
     {description = "open browser", group = "launcher"}),
 
     awful.key({modkey}, "e", function() awful.spawn.with_shell("kitty nnn -de") end, 
-    {description = "open file manager", group = "launcher"})
+    {description = "open file manager", group = "launcher"}),
 
+    awful.key({modkey}, "t", function() awful.spawn.with_shell("kitty nvim $HOME/Documents/todo") end, 
+    {description = "edit todolist", group = "launcher"})
 )
 
 clientkeys = gears.table.join(
@@ -346,8 +348,8 @@ clientkeys = gears.table.join(
             c:raise()
         end,
         {description = "toggle fullscreen", group = "client"}),
-
-        awful.key({ modkey, }, "q", function (c) c:kill() end, {description = "close", group = "client"}),
+        awful.key({ modkey, }, "q", function (c) c:kill() end, 
+              {description = "close", group = "client"}),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
               {description = "toggle floating", group = "client"}),
     
@@ -528,9 +530,9 @@ client.connect_signal("request::titlebars", function(c)
 
     awful.titlebar(c) : setup {
         { -- Left
-            awful.titlebar.widget.iconwidget(c),
-            buttons = buttons,
-            layout  = wibox.layout.fixed.horizontal
+        awful.titlebar.widget.iconwidget(c),
+        buttons = buttons,
+        layout  = wibox.layout.fixed.horizontal
         },
         { -- Middle
             { -- Title
@@ -565,3 +567,4 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 awful.spawn.with_shell("pgrep picom || picom --daemon")
 awful.spawn.with_shell("pgrep cbatticon || cbatticon")
 awful.spawn.with_shell("pgrep volumeicon || volumeicon")
+awful.spawn.with_shell("pgrep nm-tray || nm-tray")
