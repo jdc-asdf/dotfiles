@@ -1,0 +1,8 @@
+#!/bin/sh
+
+case "$1" in
+  "-a") NUM="$('ls' -A | wc -l)" || exit ;;
+  *) NUM="$('ls' | wc -l)" || exit ;;
+esac
+
+echo "\e[34mThere are \e[33m${NUM} items \e[34min \e[33m$(pwd)\e[0m".

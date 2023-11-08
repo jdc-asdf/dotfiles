@@ -1,0 +1,3 @@
+#!/bin/sh
+doc="$HOME/Documents/Maths/books/"
+xdg-open "${doc}maths-core-a-level.pdf" & xdg-open "${doc}maths-core-a-level-answers.pdf" & disown -r
