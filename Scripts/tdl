@@ -2,12 +2,15 @@
 
 path="${1:-$HOME/Documents/todo}"
 
-sed "
-    /\[X\]/ d;
+sed "/\[X\]/ d;
     /^$/ d;
     s/\[ \] /a\[ \]/;
     s/\[W\] /b\[W\]/;
     s/\[I\] /c\[I\]/;
     /^\([0-9]\{4\}\) - \([0-9][0-9]\) - \([0-9][0-9]\)$/ d
-    " $path | sort | sed "s/a\[ \]//" | nl -w 3 -s ". "
+    " $path | sort | nl -w 3 -s ". " | sed "s/a\[ \]//;
+    /b\[W\]/ s/\(^.*$\)/$(tput setaf 2)\1$(tput op)/;
+    s/b\[W\]//;
+    /c\[I\]/ s/\(^.*$\)/$(tput setaf 4)\1$(tput op)/;
+    s/c\[I\]//;" 
 
