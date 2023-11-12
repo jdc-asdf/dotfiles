@@ -1,5 +1,5 @@
 alias honkmimi='systemctl suspend'
-alias shutnow='sudo shutdown now'
+alias sdn='sudo shutdown now'
 
 #shortcuts
 alias brightfull='sudo brightnessctl s 150'
@@ -18,7 +18,7 @@ alias egrep='egrep --color=auto'
 
 alias l='exa -l --icons'
 alias ls='exa -la --icons'
-alias ll='exa -aT --level=4 --icons'
+alias tree='exa -aT --level=4 --icons'
 
 alias vi='nvim'
 alias vim='nvim'

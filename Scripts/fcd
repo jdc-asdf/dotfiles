@@ -1,1 +1,5 @@
-cd "$(find -type d | fzf)"
+#!/bin/sh
+
+file_path="$(find -type d | fzf)"
+echo $file_path
+cd $file_path 

@@ -2,7 +2,7 @@ local gears = require("gears")
 local awful = require("awful")
 local hotkeys_popup = require("awful.hotkeys_popup")
 
-modkey = "Mod4"
+local modkey = "Mod4"
 
 Bindings.globalkeys = gears.table.join(
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help, {description="show help", group="awesome"}),
@@ -99,10 +99,7 @@ Bindings.globalkeys = gears.table.join(
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end,
               {description = "show the menubar", group = "launcher"})
-)
-
-clientkeys = gears.table.join(
- 
+),
     awful.key({ modkey,           }, "f",
         function (c)
             myscreen = awful.screen.focused()
@@ -147,7 +144,6 @@ clientkeys = gears.table.join(
             c:raise()
         end ,
         {description = "(un)maximize horizontally", group = "client"})
-)
 
 -- Bind all key numbers to tags.
 -- Be careful: we use keycodes to make it work on any keyboard layout.

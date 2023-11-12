@@ -64,5 +64,7 @@ fi
 
 # ~/ Clean up:
 # export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
+export HISTFILE="$XDG_CACHE_HOME"/.bash_history
 
 date
+tdl

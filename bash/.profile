@@ -16,8 +16,15 @@ if [ -n "$BASH_VERSION" ]; then
     fi
 fi
 
+export XDG_CONFIG_HOME="${HOME}/.config"
+export XDG_CACHE_HOME="${HOME}/.cache"
+export XDG_DATA_HOME="${HOME}/.local/share"
+export XDG_STATE_HOME="${HOME}/.local/state"
+
+
 export DOTFILES="$HOME/dotfiles"
 
+export VISUAL=nvim
 export EDITOR=nvim
 
 export NNN_FIFO=/tmp/nnn.fifo
@@ -41,6 +48,6 @@ if [ -d "$HOME/.local/bin" ] ; then
 fi
 
 # include Scripts if it exists
-if [ -d "$HOME/Scripts" ] ; then
-    PATH="$HOME/Scripts:$PATH"
+if [ -d "$DOTFILES/Scripts" ] ; then
+    PATH="$DOTFILES/Scripts:$PATH"
 fi

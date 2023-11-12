@@ -49,7 +49,7 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init("~/.config/awesome/modules/theme.lua")
+beautiful.init("~/dotfiles/awesome/modules/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "kitty"
@@ -67,8 +67,8 @@ modkey = "Mod4"
 awful.layout.layouts = {
     awful.layout.suit.tile,
     -- awful.layout.suit.tile.left,
-    -- awful.layout.suit.tile.bottom,
-    -- awful.layout.suit.tile.top,
+    awful.layout.suit.tile.bottom,
+    awful.layout.suit.tile.top,
     awful.layout.suit.fair,
     -- awful.layout.suit.fair.horizontal,
     awful.layout.suit.spiral,
@@ -187,7 +187,8 @@ awful.screen.connect_for_each_screen(function(s)
     set_wallpaper(s)
 
     -- Each screen has its own tag table.
-    awful.tag({ "1", "2", "3", "4" }, s, awful.layout.layouts[1])
+    awful.tag({ "1", "2", "3", "4"}, s, awful.layout.layouts[1])
+
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
     -- Create an imagebox widget which will contain an icon indicating which layout we're using.
@@ -288,9 +289,10 @@ globalkeys = gears.table.join(
         {description = "go back", group = "client"}),
 
     -- Standard program
-    awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end, {description = "open a terminal", group = "launcher"}),
-    awful.key({ modkey, "Control" }, "r", awesome.restart(), {description = "reload awesome", group = "awesome"}),
- 
+    awful.key({ modkey,           }, "Return", function () awful.spawn(terminal) end,
+              {description = "open a terminal", group = "launcher"}),
+    awful.key({ modkey, "Control" }, "r", awesome.restart,
+              {description = "reload awesome", group = "awesome"}),
     awful.key({ modkey, "Shift"   }, "x", awesome.quit,
               {description = "quit awesome", group = "awesome"}),
 
@@ -326,13 +328,14 @@ globalkeys = gears.table.join(
     -- Prompt
     awful.key({ modkey },            "r",     function () awful.util.spawn("dmenu_run") end,
     {description = "run dmenu", group = "launcher"}),
-
     awful.key({modkey}, "b", function() awful.util.spawn("firefox") end, 
     {description = "open browser", group = "launcher"}),
 
     awful.key({modkey}, "e", function() awful.spawn.with_shell("kitty nnn -de") end, 
-    {description = "open file manager", group = "launcher"})
+    {description = "open file manager", group = "launcher"}),
 
+    awful.key({modkey}, "t", function() awful.spawn.with_shell("kitty nvim $HOME/Documents/todo") end, 
+    {description = "edit todolist", group = "launcher"})
 )
 
 clientkeys = gears.table.join(
@@ -345,18 +348,17 @@ clientkeys = gears.table.join(
             c:raise()
         end,
         {description = "toggle fullscreen", group = "client"}),
-  
-    awful.key({ modkey, }, "q",      function (c) c:kill()                         end,
+        awful.key({ modkey, }, "q", function (c) c:kill() end, 
               {description = "close", group = "client"}),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
               {description = "toggle floating", group = "client"}),
-    awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end,
+    
+              awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end,
               {description = "move to master", group = "client"}),
     awful.key({ modkey,           }, "o",      function (c) c:move_to_screen()               end,
               {description = "move to screen", group = "client"}),
     awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end,
               {description = "toggle keep on top", group = "client"}),
-    
     awful.key({ modkey,           }, "n",
         function (c)
             -- The client currently has the input focus, so it cannot be
@@ -364,7 +366,6 @@ clientkeys = gears.table.join(
             c.minimized = true
         end ,
         {description = "minimize", group = "client"}),
-    
     awful.key({ modkey,           }, "m",
         function (c)
             c.maximized = not c.maximized
@@ -566,3 +567,4 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 awful.spawn.with_shell("pgrep picom || picom --daemon")
 awful.spawn.with_shell("pgrep cbatticon || cbatticon")
 awful.spawn.with_shell("pgrep volumeicon || volumeicon")
+awful.spawn.with_shell("pgrep nm-tray || nm-tray")
