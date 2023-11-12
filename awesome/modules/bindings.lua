@@ -1,14 +1,20 @@
-local gears = require("gears")
 local awful = require("awful")
-local hotkeys_popup = require("awful.hotkeys_popup")
+local gears = require("gears")
 
 local modkey = "Mod4"
+local altkey = "Mod1"
+local hotkeys_popup = require("awful.hotkeys_popup")
 
-Bindings.globalkeys = gears.table.join(
-    awful.key({ modkey,           }, "s",      hotkeys_popup.show_help, {description="show help", group="awesome"}),
-    awful.key({ modkey,           }, "Left",   awful.tag.viewprev, {description = "view previous", group = "tag"}),
-    awful.key({ modkey,           }, "Right",  awful.tag.viewnext, {description = "view next", group = "tag"}),
-    awful.key({ modkey,           }, "Escape", awful.tag.history.restore, {description = "go back", group = "tag"}),
+-- {{{ Key bindings
+globalkeys = gears.table.join(
+    awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
+              {description="show help", group="awesome"}),
+    awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
+              {description = "view previous", group = "tag"}),
+    awful.key({ modkey,           }, "Right",  awful.tag.viewnext,
+              {description = "view next", group = "tag"}),
+    awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
+              {description = "go back", group = "tag"}),
 
     awful.key({ modkey,           }, "j",
         function ()
@@ -22,9 +28,6 @@ Bindings.globalkeys = gears.table.join(
         end,
         {description = "focus previous by index", group = "client"}
     ),
-    awful.key({ modkey,           }, "w", function () mymainmenu:show() end,
-              {description = "show main menu", group = "awesome"}),
-
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end,
               {description = "swap with next client by index", group = "client"}),
@@ -50,7 +53,7 @@ Bindings.globalkeys = gears.table.join(
               {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
               {description = "reload awesome", group = "awesome"}),
-    awful.key({ modkey, "Shift"   }, "e", awesome.quit,
+    awful.key({ modkey, "Shift"   }, "x", awesome.quit,
               {description = "quit awesome", group = "awesome"}),
 
     awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)          end,
@@ -84,22 +87,19 @@ Bindings.globalkeys = gears.table.join(
 
     -- Prompt
     awful.key({ modkey },            "r",     function () awful.util.spawn("dmenu_run") end,
-    {description = "show the menubar", group = "launcher"}),
+    {description = "run dmenu", group = "launcher"}),
+    awful.key({modkey}, "b", function() awful.util.spawn("firefox") end, 
+    {description = "open browser", group = "launcher"}),
 
-    awful.key({ modkey }, "x",
-              function ()
-                  awful.prompt.run {
-                    prompt       = "Run Lua code: ",
-                    textbox      = awful.screen.focused().mypromptbox.widget,
-                    exe_callback = awful.util.eval,
-                    history_path = awful.util.get_cache_dir() .. "/history_eval"
-                  }
-              end,
-              {description = "lua execute prompt", group = "awesome"}),
-    -- Menubar
-    awful.key({ modkey }, "p", function() menubar.show() end,
-              {description = "show the menubar", group = "launcher"})
-),
+    awful.key({modkey}, "e", function() awful.spawn.with_shell("kitty nnn -de") end, 
+    {description = "open file manager", group = "launcher"}),
+
+    awful.key({modkey}, "t", function() awful.spawn.with_shell("kitty nvim $HOME/Documents/todo") end, 
+    {description = "edit todolist", group = "launcher"})
+)
+
+clientkeys = gears.table.join(
+
     awful.key({ modkey,           }, "f",
         function (c)
             myscreen = awful.screen.focused()
@@ -108,12 +108,12 @@ Bindings.globalkeys = gears.table.join(
             c:raise()
         end,
         {description = "toggle fullscreen", group = "client"}),
-  
-    awful.key({ modkey, }, "q",      function (c) c:kill()                         end,
+        awful.key({ modkey, }, "q", function (c) c:kill() end, 
               {description = "close", group = "client"}),
     awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
               {description = "toggle floating", group = "client"}),
-    awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end,
+    
+              awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end,
               {description = "move to master", group = "client"}),
     awful.key({ modkey,           }, "o",      function (c) c:move_to_screen()               end,
               {description = "move to screen", group = "client"}),
@@ -131,25 +131,13 @@ Bindings.globalkeys = gears.table.join(
             c.maximized = not c.maximized
             c:raise()
         end ,
-        {description = "(un)maximize", group = "client"}),
-    awful.key({ modkey, "Control" }, "m",
-        function (c)
-            c.maximized_vertical = not c.maximized_vertical
-            c:raise()
-        end ,
-        {description = "(un)maximize vertically", group = "client"}),
-    awful.key({ modkey, "Shift"   }, "m",
-        function (c)
-            c.maximized_horizontal = not c.maximized_horizontal
-            c:raise()
-        end ,
-        {description = "(un)maximize horizontally", group = "client"})
+        {description = "(un)maximize", group = "client"}))
 
 -- Bind all key numbers to tags.
 -- Be careful: we use keycodes to make it work on any keyboard layout.
 -- This should map on the top row of your keyboard, usually 1 to 9.
 for i = 1, 9 do
-    Bindings.globalkeys = gears.table.join(globalkeys,
+    globalkeys = gears.table.join(globalkeys,
         -- View tag only.
         awful.key({ modkey }, "#" .. i + 9,
                   function ()
@@ -209,4 +197,4 @@ clientbuttons = gears.table.join(
     end)
 )
 
-root.keys(Bindings.globalkeys)
+-- }}}
