@@ -16,8 +16,7 @@ alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
-alias l='exa -l --icons'
-alias ls='exa -la --icons'
+alias ls='exa --icons'
 alias tree='exa -aT --level=4 --icons'
 
 alias vi='nvim'

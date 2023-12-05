@@ -2,8 +2,8 @@
 output=$HOME/Pictures/Screenshots/%Y-%m-%d-%T-screenshot.png
 
 case "$1" in
-  "full") scrot "$output" || exit ;; 
-  "window") scrot "$output" --focused --border || exit ;;
+  "-full") scrot "$output" || exit ;; 
+  "-window") scrot "$output" --focused --border || exit ;;
   *) scrot "$output" --select --line mode=edge || exit ;;
 esac
 

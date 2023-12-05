@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# data scraped from malta airport website ya ya
+data_path="$HOME/Documents/weather"
+
+webpage=$(curl -s 'https://www.maltairport.com/weather/detailed-forecast/' -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/119.0')
+
+data=$(echo $webpage | pup "ul.current-details li text{}")
+data="${data} $(echo $webpage | pup "div.items text{}")"
+
+echo "${data}" | sed "/^\s$/ d; s/Â//; s/^\s//; s/\s$//; s/\([0-9]\+\) /\1/g; /[0-9]\+/ s/\(^.*$\)/: \1,/;" | sed -z "s/\([a-zA-Z]\)\n/\1/g;" | tail -n +2
+
+# cat output.html | sed "s/<li>//g; s/<\/li>/'\n/g; s/<strong>/'/g; s/<\/strong>/': '/g"
+# cat robots.html | pup "div.item" | sed -z "s/\s//g;" | sed "s/<div.\+>/'/g;"

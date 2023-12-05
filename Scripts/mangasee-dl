@@ -1,0 +1,50 @@
+#!/bin/bash
+
+printf -v a "%04d" $(( $2 ))
+if ls $HOME/Documents/books/${1} | grep -q $a.pdf; then
+  echo "$1 chapter $2 already downloaded" 
+  exit 1
+fi
+
+input="https://mangasee123.com/read-online/${1}-chapter-${2}.html"
+
+url=$(curl -s -S $input --compressed -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/119.0')
+
+chapter=$(echo "${url}" | grep "vm.CurChapter = {" | grep -o "\{.*\}" | jq .Chapter | sed "s/\"1\(.*\)0\"/\1/" | tr -d '\r')
+
+name=$(echo "${url}" | grep -P "vm.IndexName = \".*\""  | sed "s/.*\"\(.*\)\";/\1/" | tr -d '\r')
+
+location="$HOME/Documents/books/$name"
+mkdir -p $location
+
+pages=$(echo "${url}" | grep "vm.CurChapter = {" | grep -o "\{.*\}" | jq .Page | sed "s/\"\(.*\)\"/\1/" | tr -d '\r')
+
+directory=$(echo "${url}" | grep "vm.CurChapter = {" | grep -o "\{.*\}" | jq .Directory| sed "s/\"\(.*\)\"/\1/" | tr -d '\r')
+
+if [ -n "$directory" ]; then
+  directory="$name/$directory"
+else
+ directory="$name"
+fi
+
+url=$(echo "${url}" | grep -P "vm.CurPathName = \".*\"" | sed "s/.*\"\(.*\)\";/\1/" | tr -d '\r')
+
+mkdir "${location}/${name}-${chapter}"
+
+i=0
+a=0
+
+while [ $i -lt $pages ]
+  do
+    printf -v a "%03d" $(( i+1 ))
+    wget -q --show-progress -P "${location}/${name}-${chapter}" "https://${url}/manga/${directory}/${chapter}-${a}.png"
+    true $(( i++ ))
+  done
+
+cd ${location}/${name}-${chapter}
+
+img2pdf *.png -o ${location}/${name}-${chapter}.pdf
+
+rm -rf "${location}/${name}-${chapter}"
+
+echo "$1 chapter $2 downloaded"

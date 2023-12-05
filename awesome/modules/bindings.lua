@@ -88,7 +88,7 @@ globalkeys = gears.table.join(
     -- Prompt
     awful.key({ modkey },            "r",     function () awful.util.spawn("dmenu_run") end,
     {description = "run dmenu", group = "launcher"}),
-    awful.key({modkey}, "b", function() awful.util.spawn("firefox") end, 
+    awful.key({modkey}, "b", function() awful.util.spawn("librewolf") end, 
     {description = "open browser", group = "launcher"}),
 
     awful.key({modkey}, "e", function() awful.spawn.with_shell("kitty nnn -de") end, 

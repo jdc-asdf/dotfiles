@@ -1,2 +1,3 @@
-set page-padding 10
+set page-padding 20
 map i recolor
+set guioptions none

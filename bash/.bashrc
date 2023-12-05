@@ -67,4 +67,3 @@ fi
 export HISTFILE="$XDG_CACHE_HOME"/.bash_history
 
 date
-tdl
