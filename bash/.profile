@@ -21,12 +21,10 @@ export XDG_CACHE_HOME="${HOME}/.cache"
 export XDG_DATA_HOME="${HOME}/.local/share"
 export XDG_STATE_HOME="${HOME}/.local/state"
 
-
 export DOTFILES="$HOME/dotfiles"
 
 export VISUAL=nvim
 export EDITOR=nvim
-
 
 # nnn file manager
 export NNN_FIFO=/tmp/nnn.fifo
@@ -49,6 +47,6 @@ if [ -d "$HOME/.local/bin" ] ; then
 fi
 
 # include Scripts if it exists
-if [ -d "$DOTFILES/Scripts" ] ; then
-    PATH="$DOTFILES/Scripts:$PATH"
+if [ -d "$DOTFILES/scripts" ] ; then
+    PATH="$DOTFILES/scripts:$PATH"
 fi
