@@ -103,7 +103,6 @@ clientkeys = gears.table.join(
     awful.key({ modkey,           }, "f",
         function (c)
             myscreen = awful.screen.focused()
-            myscreen.mywibox.visible = not myscreen.mywibox.visible
             c.fullscreen = not c.fullscreen
             c:raise()
         end,

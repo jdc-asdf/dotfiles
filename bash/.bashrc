@@ -66,7 +66,4 @@ fi
 # export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
 export HISTFILE="$XDG_CACHE_HOME"/.bash_history
 
-tput setaf 1
-date
-echo "You have $(tdl | wc -l) tasks"
-tput op
+startmenu

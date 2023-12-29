@@ -1,0 +1,11 @@
+#!/bin/sh
+
+tput bold
+echo "[ $(tput setaf 6)$(date '+%Y-%m-%d %H:%M:%S') $(tput op)]"
+
+tasks=$(grep -v "\[X\].*" "${HOME}/Documents/todo" | grep "\[" | wc -l)
+
+if [ $tasks -ge 1 ]; then
+  echo "[ $(tput setaf 5)$(printf "%02d" $tasks) unfinished tasks$(tput op) ]"
+fi
+tput op
